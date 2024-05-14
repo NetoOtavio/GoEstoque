@@ -1,8 +1,10 @@
-package com.goestoque.goestoqueservice.user;
+package com.goestoque.goestoqueservice.users;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity(name = "use_users")
+@Data
 public class User {
 
     @Id
