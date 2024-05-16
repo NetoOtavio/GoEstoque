@@ -8,11 +8,17 @@ import lombok.Data;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "use_name")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "use_id")
+    private Long id;
 
-    private String name;
 
+    @Column(name = "use_email",
+            nullable = false,
+            unique = true)
     private String email;
+
+    @Column(name = "use_name",
+            nullable = false)
+    private String name;
 }
