@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    private UserRepository repository;
+    private UserService userService;
 
     @PostMapping(path = "/create")
     public @ResponseBody String create(@RequestBody User user) {
 
-        repository.save(user);
+        userService.create(user);
         return "Saved";
     }
 
     @GetMapping("/readall")
     public @ResponseBody Iterable<User> readAll() {
-        return repository.findAll();
+        return userService.readAllUsers();
     }
 }
