@@ -1,7 +1,10 @@
 package com.goestoque.goestoqueservice.users;
 
+import com.goestoque.goestoqueservice.items.Item;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.Set;
 
 @Entity(name = "use_users")
 @Data
@@ -21,4 +24,7 @@ public class User {
     @Column(name = "use_name",
             nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Item> items;
 }
