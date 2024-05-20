@@ -15,7 +15,6 @@ public class User {
     @Column(name = "use_id")
     private Long id;
 
-
     @Column(name = "use_email",
             nullable = false,
             unique = true)
