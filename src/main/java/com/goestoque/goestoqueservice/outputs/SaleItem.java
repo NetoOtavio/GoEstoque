@@ -20,7 +20,7 @@ public class SaleItem {
     private double price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sal_id",
+    @JoinColumn(name = "out_id",
                 nullable = false)
     private Sale sale;
 }
