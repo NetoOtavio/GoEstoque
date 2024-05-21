@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterRequest request
+    public ResponseEntity<AuthResponseDTO> register(
+            @RequestBody RegisterRequestDTO request
     ) {
         //
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody AuthenticationRequest request
+    public ResponseEntity<AuthResponseDTO> register(
+            @RequestBody AuthenticationRequestDTO request
     ) {
         //
     }
