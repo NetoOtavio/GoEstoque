@@ -4,6 +4,7 @@ import com.goestoque.goestoqueservice.inputs.Input;
 import com.goestoque.goestoqueservice.items.Item;
 import com.goestoque.goestoqueservice.outputs.Output;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 @Entity(name = "use_users")
 @Data
+@Builder
 public class User implements UserDetails {
 
     @Id
