@@ -42,16 +42,22 @@ public class User implements UserDetails {
     private String name;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "use_role",
+            nullable = false)
     private UserRole role;
 
-    @OneToMany(mappedBy = "user")
+    @Column(name = "use_is_active", nullable = false)
+    private boolean isActive;
+
+    //
+    /*@OneToMany(mappedBy = "user")
     private Set<Item> items;
 
     @OneToMany(mappedBy = "user")
     private Set<Input> inputs;
 
     @OneToMany(mappedBy = "user")
-    private Set<Output> outputs;
+    private Set<Output> outputs;*/
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
