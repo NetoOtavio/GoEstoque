@@ -5,15 +5,17 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 @Builder
 @Entity(name = "iit_input_items")
 public class InputItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "iit_id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "iit_amount",
             nullable = false)

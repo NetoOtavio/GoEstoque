@@ -3,12 +3,15 @@ package com.goestoque.goestoqueservice.outputs;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Entity(name = "sit_sale_items")
 @Data
 public class SaleItem {
 
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @MapsId
     @OneToOne

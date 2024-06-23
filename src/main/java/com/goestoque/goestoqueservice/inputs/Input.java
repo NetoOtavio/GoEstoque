@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 @Data
 @Builder
@@ -15,9 +16,9 @@ import java.util.Set;
 public class Input {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "inp_id")
-    private Long id;
+    private UUID id;
 
     @CreationTimestamp
     @Column(name = "inp_date",

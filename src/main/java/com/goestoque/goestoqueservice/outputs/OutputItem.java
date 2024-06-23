@@ -4,14 +4,16 @@ import com.goestoque.goestoqueservice.items.Item;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.UUID;
+
 @Entity(name = "oit_output_items")
 @Data
 public class OutputItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "oit_id")
-    private long id;
+    private UUID id;
 
     @Column(name = "oit_amount",
             nullable = false)

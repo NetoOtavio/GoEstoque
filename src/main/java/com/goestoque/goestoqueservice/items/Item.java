@@ -4,6 +4,8 @@ import com.goestoque.goestoqueservice.users.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Data
 @Builder
 @Entity(name = "ite_items")
@@ -12,9 +14,9 @@ import lombok.*;
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ite_id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "ite_code",
             nullable = false)

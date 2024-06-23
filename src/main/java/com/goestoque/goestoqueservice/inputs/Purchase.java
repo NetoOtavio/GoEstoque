@@ -4,13 +4,15 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "pur_purchase")
 @Data
 public class Purchase {
 
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @MapsId
     @OneToOne

@@ -7,15 +7,16 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "out_outputs")
 @Data
 public class Output {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "out_id")
-    private long id;
+    private UUID id;
 
     @CreationTimestamp
     @Column(name = "out_date",

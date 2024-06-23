@@ -1,6 +1,8 @@
 package com.goestoque.goestoqueservice.inputs;
 
+import java.util.UUID;
+
 public record InputDTO(
-    Long inputId,
+    UUID inputId,
     String message
 ) {}

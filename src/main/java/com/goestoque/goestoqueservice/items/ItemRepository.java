@@ -5,8 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface ItemRepository extends JpaRepository<Item, UUID> {
     List<Item> findByNameContaining(String name);
     List<Item> findByUser(User user);
     Optional<Item> findByUserAndCode(User user, String code);
