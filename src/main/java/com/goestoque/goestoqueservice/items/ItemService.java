@@ -58,6 +58,7 @@ public class ItemService {
         return new ItemDTO(
                 item.getCode(),
                 item.getName(),
+                item.getAvailableQuantity(),
                 item.getPrice(),
                 item.getDescription()
         );
