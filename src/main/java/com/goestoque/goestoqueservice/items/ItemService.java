@@ -23,7 +23,6 @@ public class ItemService {
         Item item = Item.builder()
                 .code(dto.code())
                 .name(dto.name())
-                .availableQuantity(dto.availableQuantity())
                 .price(dto.price())
                 .description(dto.description())
                 .user(user)
@@ -58,7 +57,6 @@ public class ItemService {
         return new ItemDTO(
                 item.getCode(),
                 item.getName(),
-                item.getAvailableQuantity(),
                 item.getPrice(),
                 item.getDescription()
         );
