@@ -23,6 +23,7 @@ public class ItemService {
         Item item = Item.builder()
                 .code(dto.code())
                 .name(dto.name())
+                .availableQuantity(0)
                 .price(dto.price())
                 .description(dto.description())
                 .user(user)
