@@ -2,10 +2,12 @@ package com.goestoque.goestoqueservice.inputs;
 
 import com.goestoque.goestoqueservice.items.Item;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
-@Entity(name = "iit_input_items")
 @Data
+@Builder
+@Entity(name = "iit_input_items")
 public class InputItem {
 
     @Id

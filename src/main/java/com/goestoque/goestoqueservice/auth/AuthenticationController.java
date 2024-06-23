@@ -1,6 +1,8 @@
 package com.goestoque.goestoqueservice.auth;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,15 +18,19 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponseDTO> register(
-            @RequestBody RegisterRequestDTO request
+            @Valid @RequestBody RegisterRequestDTO request
     ) {
-        return ResponseEntity.ok(service.register(request));
+        AuthResponseDTO responseDTO = service.register(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthResponseDTO> authenticate(
-            @RequestBody AuthenticationRequestDTO request
+            @Valid @RequestBody AuthenticationRequestDTO request
     ) {
-        return ResponseEntity.ok(service.authenticate(request));
+        AuthResponseDTO responseDTO = service.authenticate(request);
+        return ResponseEntity.status(HttpStatus.OK).body(responseDTO);
     }
+
+
 }

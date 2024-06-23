@@ -1,4 +1,12 @@
 package com.goestoque.goestoqueservice.auth;
 
-public record AuthenticationRequestDTO(String email, String password) {
-}
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record AuthenticationRequestDTO(
+        @NotBlank(message = "Email is mandatory")
+        String email,
+
+        @NotBlank(message = "Password is mandatory")
+        String password
+) {}

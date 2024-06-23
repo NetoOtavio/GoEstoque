@@ -1,8 +1,5 @@
 package com.goestoque.goestoqueservice.users;
 
-import com.goestoque.goestoqueservice.inputs.Input;
-import com.goestoque.goestoqueservice.items.Item;
-import com.goestoque.goestoqueservice.outputs.Output;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,8 +43,8 @@ public class User implements UserDetails {
             nullable = false)
     private UserRole role;
 
-    @Column(name = "use_is_active", nullable = false)
-    private boolean isActive;
+    @Column(name = "use_is_enabled", nullable = false)
+    private boolean isEnabled;
 
     //
     /*@OneToMany(mappedBy = "user")
@@ -91,6 +88,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isEnabled;
     }
 }

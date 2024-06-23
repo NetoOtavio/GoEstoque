@@ -4,7 +4,6 @@ import com.goestoque.goestoqueservice.users.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-
 @Data
 @Builder
 @Entity(name = "ite_items")
@@ -17,9 +16,8 @@ public class Item {
     @Column(name = "ite_id")
     private Long id;
 
-    @Column(name = "ite_codigo",
-            nullable = false,
-            unique = true)
+    @Column(name = "ite_code",
+            nullable = false)
     private String code;
 
     @Column(name = "ite_name",

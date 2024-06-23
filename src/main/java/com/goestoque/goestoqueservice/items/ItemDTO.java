@@ -1,7 +1,7 @@
 package com.goestoque.goestoqueservice.items;
 
-public record ItemResponseDTO(
-        Long id,
+public record ItemDTO(
+        String code,
         String name,
         int availableQuantity,
         double price,

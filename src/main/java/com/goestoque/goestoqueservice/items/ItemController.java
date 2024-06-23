@@ -1,11 +1,11 @@
 package com.goestoque.goestoqueservice.items;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/item")
@@ -15,26 +15,28 @@ public class ItemController {
     private final ItemService service;
 
     @PostMapping("/create")
-    public ResponseEntity<CreateResponseDTO> create(
-            @RequestBody CreateRequestDTO request
+    public ResponseEntity<ItemDTO> create(
+            @RequestBody ItemDTO request
     ) {
-
-        return ResponseEntity.ok(service.createItem(request));
+        ItemDTO itemDTO = service.createItem(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(itemDTO);
     }
 
     @GetMapping("/readbyuser")
-    public ResponseEntity<List<ItemResponseDTO>>  readItemsByUser() {
+    public ResponseEntity<List<ItemDTO>>  readItemsByUser() {
         return ResponseEntity.ok(service.readItemsByUser());
     }
 
-    /*@GetMapping("/readbyuser")
-    public ResponseEntity<Set<Item>>  readItemsByUser() {
-        return ResponseEntity.ok(service.readUserItems());
-    }*/
+    @GetMapping("/readbyuserandcode")
+    public ResponseEntity<ItemDTO> readItemByUserAndCode(
+            @RequestParam String itemCode
+    ) {
+        return ResponseEntity.ok(service.readItemByUserAndCode(itemCode));
+    }
 
     @GetMapping("/readall")
-    public @ResponseBody List<ItemResponseDTO> readAllItems() {
-        return service.findAllItems();
+    public @ResponseBody List<ItemDTO> readAllItems() {
+        return service.readAllItems();
     }
 
 }

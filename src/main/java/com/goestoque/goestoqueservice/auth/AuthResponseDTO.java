@@ -1,4 +1,5 @@
 package com.goestoque.goestoqueservice.auth;
 
-public record AuthResponseDTO(String token) {
-}
+public record AuthResponseDTO(
+        String response
+) {}

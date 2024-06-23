@@ -2,14 +2,16 @@ package com.goestoque.goestoqueservice.inputs;
 
 import com.goestoque.goestoqueservice.users.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.Set;
 
-@Entity(name = "inp_inputs")
 @Data
+@Builder
+@Entity(name = "inp_inputs")
 public class Input {
 
     @Id
