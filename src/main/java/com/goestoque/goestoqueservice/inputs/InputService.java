@@ -25,7 +25,8 @@ public class InputService {
                 .user(user)
                 .build();
         inputRepository.save(input);
-        createSeveralInputItems(inputItemDTOS, user, input);
+        Set<InputItem> inputItems = createSeveralInputItems(inputItemDTOS, user, input);
+        updateItemAvailableQuantity(inputItems, user);
         return new InputDTO(input.getId(), "successfully created");
     }
 
@@ -47,5 +48,14 @@ public class InputService {
                 .build();
         inputItemRepository.save(inputItem);
         return inputItem;
+    }
+
+    private void updateItemAvailableQuantity(Set<InputItem> inputItems, User user) {
+
+        for(InputItem inputItem : inputItems) {
+            Item item = inputItem.getItem();
+            item.setAvailableQuantity(item.getAvailableQuantity() + inputItem.getAmount());
+            itemRepository.save(item);
+        }
     }
 }
