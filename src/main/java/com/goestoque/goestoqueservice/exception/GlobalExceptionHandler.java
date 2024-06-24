@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<DefaultErrorResponseDTO> handleItemNotFoundException(ItemNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(ex.getClass().toString(), ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
     }
 
     @ExceptionHandler(ItemAlreadyExistsException.class)
