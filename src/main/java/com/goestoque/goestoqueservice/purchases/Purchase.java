@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Purchase {
 
     @Id
-    private UUID id;
+    private String id;
 
     @MapsId
     @OneToOne

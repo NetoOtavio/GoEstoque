@@ -15,7 +15,7 @@ public class InputItem {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "iit_id")
-    private UUID id;
+    private String id;
 
     @Column(name = "iit_amount",
             nullable = false)

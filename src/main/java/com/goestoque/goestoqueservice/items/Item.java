@@ -16,7 +16,7 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "ite_id")
-    private UUID id;
+    private String id;
 
     @Column(name = "ite_code",
             nullable = false)

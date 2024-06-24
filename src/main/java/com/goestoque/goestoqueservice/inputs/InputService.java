@@ -54,7 +54,7 @@ public class InputService {
         return inputItem;
     }
 
-    public Input readInputByUserAndCode(UUID inputId) {
+    public Input readInputByUserAndCode(String inputId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return inputRepository.findByUserAndId(user, inputId).orElseThrow();
     }

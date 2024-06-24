@@ -18,7 +18,7 @@ public class Input {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "inp_id")
-    private UUID id;
+    private String id;
 
     @CreationTimestamp
     @Column(name = "inp_date",

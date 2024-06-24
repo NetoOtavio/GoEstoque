@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ItemRepository extends JpaRepository<Item, UUID> {
+public interface ItemRepository extends JpaRepository<Item, String> {
     List<Item> findByNameContaining(String name);
     List<Item> findByUser(User user);
     Optional<Item> findByUserAndCode(User user, String code);
