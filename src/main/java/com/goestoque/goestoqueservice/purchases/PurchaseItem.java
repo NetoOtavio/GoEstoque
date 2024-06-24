@@ -1,12 +1,15 @@
-package com.goestoque.goestoqueservice.inputs;
+package com.goestoque.goestoqueservice.purchases;
 
+import com.goestoque.goestoqueservice.inputs.InputItem;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.UUID;
 
 @Entity(name = "pit_purchase_items")
 @Data
+@Builder
 public class PurchaseItem {
 
     @Id

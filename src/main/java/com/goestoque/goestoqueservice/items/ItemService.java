@@ -2,6 +2,7 @@ package com.goestoque.goestoqueservice.items;
 
 import com.goestoque.goestoqueservice.exception.ItemAlreadyExistsException;
 import com.goestoque.goestoqueservice.exception.ItemNotFoundException;
+import com.goestoque.goestoqueservice.inputs.InputItem;
 import com.goestoque.goestoqueservice.users.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,7 +19,7 @@ public class ItemService {
 
     private final ItemRepository repository;
 
-    public ItemDTO createItem(ItemDTO dto) {
+    public Item createItem(ItemDTO dto) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(repository.findByUserAndCode(user, dto.code()).isPresent()) throw new ItemAlreadyExistsException(dto.code());
         Item item = Item.builder()
@@ -30,31 +32,24 @@ public class ItemService {
                 .isActive(true)
                 .build();
         repository.save(item);
-        return convertToDTO(item);
+        return item;
     }
 
-    public List<ItemDTO> readAllItems() {
-        List<Item> items = repository.findAll();
-        return items.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public List<Item> readAllItems() {
+        return repository.findAll();
     }
 
-    public List<ItemDTO> readItemsByUser() {
+    public List<Item> readItemsByUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Item> items = repository.findByUser(user);
-        return items.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+        return repository.findByUser(user);
     }
 
-    public ItemDTO readItemByUserAndCode(String itemCode) {
+    public Item readItemByUserAndCode(String itemCode) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Item item = repository.findByUserAndCode(user, itemCode).orElseThrow( () -> new ItemNotFoundException(itemCode));
-        return convertToDTO(item);
+        return repository.findByUserAndCode(user, itemCode).orElseThrow( () -> new ItemNotFoundException(itemCode));
     }
 
-    private ItemDTO convertToDTO(Item item) {
+    public ItemDTO convertToDTO(Item item) {
         return new ItemDTO(
                 item.getCode(),
                 item.getName(),
@@ -62,5 +57,25 @@ public class ItemService {
                 item.getPrice(),
                 item.getDescription()
         );
+    }
+
+    public List<ItemDTO> convertToDTOList(List<Item> itemList) {
+        return itemList.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public void updateItemsAvailableQuantity(Set<InputItem> inputItems) {
+
+        for(InputItem inputItem : inputItems) {
+            Item item = inputItem.getItem();
+            item.setAvailableQuantity(item.getAvailableQuantity() + inputItem.getAmount());
+            repository.save(item);
+        }
+    }
+
+    public  void updateItemAvailableQuantity(Item item, int value) {
+        item.setAvailableQuantity(item.getAvailableQuantity() + value);
+        repository.save(item);
     }
 }

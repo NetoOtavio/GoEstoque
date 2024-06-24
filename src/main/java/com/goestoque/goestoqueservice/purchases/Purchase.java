@@ -1,17 +1,19 @@
-package com.goestoque.goestoqueservice.inputs;
+package com.goestoque.goestoqueservice.purchases;
 
+import com.goestoque.goestoqueservice.inputs.Input;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Set;
 import java.util.UUID;
 
-@Entity(name = "pur_purchase")
+@Entity(name = "pur_purchases")
 @Data
+@Builder
 public class Purchase {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @MapsId

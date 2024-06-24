@@ -1,6 +1,7 @@
-package com.goestoque.goestoqueservice.inputs;
+package com.goestoque.goestoqueservice.purchases;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,16 +11,17 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/input")
+@RequestMapping("/purchase")
 @RequiredArgsConstructor
-public class InputController {
+public class PurchaseController {
+    private final PurchaseService service;
 
-    private final InputService service;
-
+    /*
     @PostMapping("/create")
-    public ResponseEntity<InputDTO> create(
-            @RequestBody Set<InputItemDTO> request
+    public ResponseEntity<PurchaseDTO> create(
+            @RequestBody Set<PurchaseItemDTO> request
     ) {
-        return ResponseEntity.ok(service.convertToDTO( service.createInput(request) ) );
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.createPurchase(request));
     }
+    */
 }
