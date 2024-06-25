@@ -59,37 +59,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(new DefaultErrorResponseDTO(exceptionName(ex), message));
     }
 
+    @ExceptionHandler(InputNotFoundException.class)
+    public ResponseEntity<DefaultErrorResponseDTO> handleInputNotFoundException(InputNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
+    }
+
     private String exceptionName(Exception ex) {
         String string = ex.getClass().getName();
         return string.substring(string.lastIndexOf('.') + 1);
     }
 }
-/*
-public class ValidationExceptionHandler {
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach(error -> {
-            String fieldName = ((org.springframework.validation.FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-    }
-}
-*/
-/*
-@ExceptionHandler(ConstraintViolationException.class)
-public ResponseEntity<Map<String, String>> handleConstraintViolationException(ConstraintViolationException ex) {
-    Map<String, String> errors = new HashMap<>();
-    Set<ConstraintViolation<?>> violations = ex.getConstraintViolations();
-    for (ConstraintViolation<?> violation : violations) {
-        String fieldName = violation.getPropertyPath().toString();
-        String errorMessage = violation.getMessage();
-        errors.put(fieldName, errorMessage);
-    }
-    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
-}
-*/

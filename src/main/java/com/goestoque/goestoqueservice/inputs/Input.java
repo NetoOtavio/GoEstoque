@@ -2,8 +2,10 @@ package com.goestoque.goestoqueservice.inputs;
 
 import com.goestoque.goestoqueservice.users.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
@@ -13,6 +15,8 @@ import java.util.UUID;
 @Data
 @Builder
 @Entity(name = "inp_inputs")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Input {
 
     @Id

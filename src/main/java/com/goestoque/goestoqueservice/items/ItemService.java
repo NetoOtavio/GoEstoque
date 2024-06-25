@@ -65,15 +65,6 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
 
-    public void updateItemsAvailableQuantity(Set<InputItem> inputItems) {
-
-        for(InputItem inputItem : inputItems) {
-            Item item = inputItem.getItem();
-            item.setAvailableQuantity(item.getAvailableQuantity() + inputItem.getAmount());
-            repository.save(item);
-        }
-    }
-
     public  void updateItemAvailableQuantity(Item item, int value) {
         item.setAvailableQuantity(item.getAvailableQuantity() + value);
         repository.save(item);

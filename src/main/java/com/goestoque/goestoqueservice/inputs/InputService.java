@@ -1,8 +1,7 @@
 package com.goestoque.goestoqueservice.inputs;
 
-import com.goestoque.goestoqueservice.exception.ItemNotFoundException;
+import com.goestoque.goestoqueservice.exception.InputNotFoundException;
 import com.goestoque.goestoqueservice.items.Item;
-import com.goestoque.goestoqueservice.items.ItemRepository;
 import com.goestoque.goestoqueservice.items.ItemService;
 import com.goestoque.goestoqueservice.users.User;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +27,7 @@ public class InputService {
                 .user(user)
                 .build();
         inputRepository.save(input);
-        Set<InputItem> inputItems = createSeveralInputItems(inputItemDTOS, input);
-        for(InputItem inputItem : inputItems) {
+        for(InputItem inputItem : createSeveralInputItems(inputItemDTOS, input)) {
             itemService.updateItemAvailableQuantity(inputItem.getItem(), inputItem.getAmount());
         }
         System.out.println(input.getInputItems());
@@ -36,11 +35,11 @@ public class InputService {
     }
 
     private Set<InputItem> createSeveralInputItems(Set<InputItemDTO> inputItemDTOS, Input input) {
-        Set<InputItem> items = new HashSet<>();
+        Set<InputItem> inputItems = new HashSet<>();
         for( InputItemDTO inputItemDTO : inputItemDTOS) {
-            items.add(createInputItem(inputItemDTO, input));
+            inputItems.add(createInputItem(inputItemDTO, input));
         }
-        return items;
+        return inputItems;
     }
 
     private InputItem createInputItem(InputItemDTO inputItemDTO, Input input) {
@@ -54,15 +53,44 @@ public class InputService {
         return inputItem;
     }
 
-    public Input readInputByUserAndCode(String inputId) {
+    public List<Input> readInputsByUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return inputRepository.findByUserAndId(user, inputId).orElseThrow();
+        return inputRepository.findByUser(user);
     }
 
-    public InputDTO convertToDTO(Input input) {
+    public  Input readInputByUserAndId(String inputId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return inputRepository.findByUserAndId(user, inputId).orElseThrow( () -> new InputNotFoundException(inputId));
+    }
+
+    public List<InputItem> readInputItemsByInput(String inputId) {
+        Input input = readInputByUserAndId(inputId);
+        return inputItemRepository.findByInput(input);
+    }
+
+    public InputDTO convertToInputDTO(Input input) {
         return new InputDTO(
                 input.getId(),
                 input.getDate()
         );
+    }
+
+    public List<InputDTO> convertToInputDTOList(List<Input> inputList) {
+        return inputList.stream()
+                .map(this::convertToInputDTO)
+                .collect(Collectors.toList());
+    }
+
+    public InputItemDTO convertToInputItemDTO(InputItem inputItem) {
+        return new InputItemDTO(
+                inputItem.getId(),
+                inputItem.getAmount()
+        );
+    }
+
+    public List<InputItemDTO> convertToInputItemDTOList(List<InputItem> inputItemList) {
+        return inputItemList.stream()
+                .map(this::convertToInputItemDTO)
+                .collect(Collectors.toList());
     }
 }

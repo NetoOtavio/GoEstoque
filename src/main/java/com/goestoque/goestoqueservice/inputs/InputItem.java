@@ -2,14 +2,18 @@ package com.goestoque.goestoqueservice.inputs;
 
 import com.goestoque.goestoqueservice.items.Item;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
 @Builder
 @Entity(name = "iit_input_items")
+@AllArgsConstructor
+@NoArgsConstructor
 public class InputItem {
 
     @Id
