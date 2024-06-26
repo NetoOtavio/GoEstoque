@@ -29,24 +29,11 @@ public class PurchaseService {
         purchaseRepository.save(purchase);
         for(PurchaseItemDTO purchaseItemDTO : purchaseItemDTOS) {
             InputItem inputItem = inputService.readInputItemByInputIdAndItemCode(input.getId(), purchaseItemDTO.itemCode());
-
-            System.out.println("========================================================================================");
-            System.out.println(inputItem.getId());
-            System.out.println(inputItem);
-            System.out.println(purchaseItemDTO.purchaseItemPrice());
-            System.out.println(purchase);
-            System.out.println("========================================================================================");
-
             PurchaseItem purchaseItem = PurchaseItem.builder()
                     .inputItem(inputItem)
                     .price(purchaseItemDTO.purchaseItemPrice())
                     .purchase(purchase)
                     .build();
-
-            System.out.println("========================================================================================");
-            System.out.println(purchase.toString());
-            System.out.println("========================================================================================");
-
             purchaseItemRepository.save(purchaseItem);
             purchase.setValue(purchase.getValue() + purchaseItem.getPrice());
         }
