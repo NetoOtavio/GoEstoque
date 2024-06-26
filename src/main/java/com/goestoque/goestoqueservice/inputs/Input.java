@@ -34,6 +34,6 @@ public class Input {
                 nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "input")
-    private Set<InputItem> inputItems;
+    /*@OneToMany(mappedBy = "input")
+    private Set<InputItem> inputItems;*/
 }

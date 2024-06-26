@@ -38,7 +38,8 @@ public class InputController {
     public ResponseEntity<List<InputItemDTO>> readInputItemsByInput(
             @RequestParam String inputId
     ) {
-        List<InputItemDTO> inputItemDTOList= inputService.convertToInputItemDTOList( inputService.readInputItemsByInput(inputId) );
+        List<InputItemDTO> inputItemDTOList= inputService.convertToInputItemDTOList( inputService.readInputItemsByInputid(inputId) );
         return ResponseEntity.status(HttpStatus.OK).body( inputItemDTOList );
     }
+
 }

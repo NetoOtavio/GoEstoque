@@ -14,14 +14,12 @@ import java.util.Set;
 @RequestMapping("/purchase")
 @RequiredArgsConstructor
 public class PurchaseController {
-    private final PurchaseService service;
 
-    /*
+    private final PurchaseService service;
     @PostMapping("/create")
     public ResponseEntity<PurchaseDTO> create(
             @RequestBody Set<PurchaseItemDTO> request
     ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.createPurchase(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.convertPurchaseToPurchaseDTO( service.createPurchase(request) ) );
     }
-    */
 }

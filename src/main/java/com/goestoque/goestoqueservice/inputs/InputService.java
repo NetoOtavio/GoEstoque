@@ -1,5 +1,6 @@
 package com.goestoque.goestoqueservice.inputs;
 
+import com.goestoque.goestoqueservice.exception.InputItemNotFoundException;
 import com.goestoque.goestoqueservice.exception.InputNotFoundException;
 import com.goestoque.goestoqueservice.items.Item;
 import com.goestoque.goestoqueservice.items.ItemService;
@@ -30,7 +31,7 @@ public class InputService {
         for(InputItem inputItem : createSeveralInputItems(inputItemDTOS, input)) {
             itemService.updateItemAvailableQuantity(inputItem.getItem(), inputItem.getAmount());
         }
-        System.out.println(input.getInputItems());
+
         return input;
     }
 
@@ -63,9 +64,18 @@ public class InputService {
         return inputRepository.findByUserAndId(user, inputId).orElseThrow( () -> new InputNotFoundException(inputId));
     }
 
-    public List<InputItem> readInputItemsByInput(String inputId) {
+    public List<InputItem> readInputItemsByInputid(String inputId) {
         Input input = readInputByUserAndId(inputId);
         return inputItemRepository.findByInput(input);
+    }
+
+    public InputItem readInputItemByInputIdAndItemCode(String inputId, String itemCode) {
+        return inputItemRepository.findByInputAndItemCode(inputId, itemCode).orElseThrow( () -> new InputItemNotFoundException("teste"));
+    }
+
+    public InputItem readInputItemByInputAndId(String inputId, String inputItemId) {
+        Input input = readInputByUserAndId(inputId);
+        return inputItemRepository.findByInputAndId(input, inputItemId).orElseThrow( () -> new InputItemNotFoundException("teste"));
     }
 
     public InputDTO convertToInputDTO(Input input) {

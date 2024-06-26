@@ -64,6 +64,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
     }
 
+    @ExceptionHandler(InputItemNotFoundException.class)
+    public ResponseEntity<DefaultErrorResponseDTO> handleInputItemNotFoundException(InputItemNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
+    }
+
     private String exceptionName(Exception ex) {
         String string = ex.getClass().getName();
         return string.substring(string.lastIndexOf('.') + 1);

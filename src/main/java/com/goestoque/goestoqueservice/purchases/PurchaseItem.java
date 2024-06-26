@@ -2,18 +2,19 @@ package com.goestoque.goestoqueservice.purchases;
 
 import com.goestoque.goestoqueservice.inputs.InputItem;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.UUID;
+import lombok.NoArgsConstructor;
 
 @Entity(name = "pit_purchase_items")
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PurchaseItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @MapsId
@@ -27,6 +28,6 @@ public class PurchaseItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "inp_id",
-                nullable = false)
+            nullable = false)
     private Purchase purchase;
 }
