@@ -1,5 +1,6 @@
 package com.goestoque.goestoqueservice.outputs;
 
+import com.goestoque.goestoqueservice.exception.OutputItemNotFoundException;
 import com.goestoque.goestoqueservice.exception.OutputNotFoundException;
 import com.goestoque.goestoqueservice.items.Item;
 import com.goestoque.goestoqueservice.items.ItemService;
@@ -20,7 +21,7 @@ public class OutputService {
     private final OutputItemRepository outputItemRepository;
     private final ItemService itemService;
 
-    Output createOutput(Set<OutputItemDTO> outputItemDTOS) {
+    public Output createOutput(Set<OutputItemDTO> outputItemDTOS) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Output output = Output.builder()
                 .user(user)
@@ -52,6 +53,10 @@ public class OutputService {
     public List<OutputItem> readOutputItemsByOutputId(String outputId) {
         Output output = readOutputByUserAndId(outputId);
         return outputItemRepository.findByOutput(output);
+    }
+
+    public OutputItem readOutputItemByOutputIdAndItemCode(String outputId, String itemCode) {
+        return outputItemRepository.findByOutputAndItemCode(outputId, itemCode).orElseThrow( () -> new OutputItemNotFoundException("teste") );
     }
 
     public OutputDTO convertOutputToOutputDTO(Output output) {

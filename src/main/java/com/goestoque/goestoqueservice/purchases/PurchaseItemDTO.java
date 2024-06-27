@@ -4,5 +4,4 @@ public record PurchaseItemDTO(
         String itemCode,
         int amount,
         double purchaseItemPrice
-) {
-}
+) {}

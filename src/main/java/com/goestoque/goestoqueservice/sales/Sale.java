@@ -2,12 +2,18 @@ package com.goestoque.goestoqueservice.sales;
 
 import com.goestoque.goestoqueservice.outputs.Output;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Entity(name = "sal_sales")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Sale {
 
     @Id
