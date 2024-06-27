@@ -64,7 +64,7 @@ public class InputService {
         return inputRepository.findByUserAndId(user, inputId).orElseThrow( () -> new InputNotFoundException(inputId));
     }
 
-    public List<InputItem> readInputItemsByInputid(String inputId) {
+    public List<InputItem> readInputItemsByInputId(String inputId) {
         Input input = readInputByUserAndId(inputId);
         return inputItemRepository.findByInput(input);
     }
@@ -73,10 +73,12 @@ public class InputService {
         return inputItemRepository.findByInputAndItemCode(inputId, itemCode).orElseThrow( () -> new InputItemNotFoundException("teste"));
     }
 
+    /*
     public InputItem readInputItemByInputAndId(String inputId, String inputItemId) {
         Input input = readInputByUserAndId(inputId);
         return inputItemRepository.findByInputAndId(input, inputItemId).orElseThrow( () -> new InputItemNotFoundException("teste"));
     }
+    */
 
     public InputDTO convertToInputDTO(Input input) {
         return new InputDTO(

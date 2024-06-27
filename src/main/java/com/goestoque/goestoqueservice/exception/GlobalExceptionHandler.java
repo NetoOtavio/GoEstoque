@@ -69,6 +69,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
     }
 
+    @ExceptionHandler(PurchaseNotFoundException.class)
+    public ResponseEntity<DefaultErrorResponseDTO> handlePurchaseNotFoundException(PurchaseNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
+    }
+
     private String exceptionName(Exception ex) {
         String string = ex.getClass().getName();
         return string.substring(string.lastIndexOf('.') + 1);

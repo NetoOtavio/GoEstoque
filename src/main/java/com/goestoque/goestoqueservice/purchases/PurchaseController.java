@@ -23,7 +23,21 @@ public class PurchaseController {
     }
 
     @GetMapping("/readpurchasesbyuser")
-    public ResponseEntity<List<PurchaseDTO>> readpurchasesbyuser() {
+    public ResponseEntity<List<PurchaseDTO>> readPurchasesByUser() {
         return ResponseEntity.status(HttpStatus.OK).body(service.convertPurchaseListToPurchaseDTOList( service.readPurchasesByUser() ));
+    }
+
+    @GetMapping("/readpurchasebyuserandid")// <- remover endpoint inutil
+    public ResponseEntity<PurchaseDTO> readPurchaseByUserAndId(
+            @RequestParam String purchaseId
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.convertPurchaseToPurchaseDTO( service.readPurchaseByUserAndId(purchaseId)));
+    }
+
+    @GetMapping("/readpurchaseitemsbypurchase")
+    public ResponseEntity<List<PurchaseItemDTO>> readPurchaseItemsByPurchase(
+            @RequestParam String purchaseId
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.convertPurchaseItemListToPurchaseItemDTOList( service.readPurchaseItemsByPurchase(purchaseId) ));
     }
 }

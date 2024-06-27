@@ -1,5 +1,6 @@
 package com.goestoque.goestoqueservice.purchases;
 
+import com.goestoque.goestoqueservice.exception.PurchaseNotFoundException;
 import com.goestoque.goestoqueservice.inputs.Input;
 import com.goestoque.goestoqueservice.inputs.InputItem;
 import com.goestoque.goestoqueservice.inputs.InputItemDTO;
@@ -8,7 +9,6 @@ import com.goestoque.goestoqueservice.users.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -43,7 +43,17 @@ public class PurchaseService {
 
     public List<Purchase> readPurchasesByUser() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return purchaseRepository.findByInputUserId(user.getId());
+        return purchaseRepository.findByUser(user.getId());
+    }
+
+    public Purchase readPurchaseByUserAndId(String purchaseId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return purchaseRepository.findByUserAndId(user.getId() , purchaseId).orElseThrow( () -> new PurchaseNotFoundException(purchaseId));
+    }
+
+    public List<PurchaseItem> readPurchaseItemsByPurchase(String purchaseId) {
+        Purchase purchase = readPurchaseByUserAndId(purchaseId);
+        return purchaseItemRepository.findByPurchase(purchase);
     }
 
     public Set<InputItemDTO> convertPurchaseToInput(Set<PurchaseItemDTO> purchaseItemDTOS) {
@@ -65,6 +75,21 @@ public class PurchaseService {
         return new PurchaseDTO(
                 purchase.getId(),
                 purchase.getValue()
+        );
+    }
+
+    public List<PurchaseItemDTO> convertPurchaseItemListToPurchaseItemDTOList(List<PurchaseItem> purchaseItemList) {
+        return purchaseItemList.stream()
+                .map(this::convertPurchaseItemToPurchaseItemDTO)
+                .collect(Collectors.toList());
+    }
+
+    public PurchaseItemDTO convertPurchaseItemToPurchaseItemDTO(PurchaseItem purchaseItem) {
+        InputItem inputItem = purchaseItem.getInputItem();
+        return new PurchaseItemDTO(
+                inputItem.getItem().getCode(),
+                inputItem.getAmount(),
+                purchaseItem.getPrice()
         );
     }
 }
