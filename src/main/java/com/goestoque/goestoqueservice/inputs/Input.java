@@ -13,8 +13,8 @@ import java.util.Set;
 import java.util.UUID;
 
 @Data
-@Builder
 @Entity(name = "inp_inputs")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Input {

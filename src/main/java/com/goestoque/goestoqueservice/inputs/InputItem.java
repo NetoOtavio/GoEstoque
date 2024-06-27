@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 @Data
-@Builder
 @Entity(name = "iit_input_items")
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class InputItem {

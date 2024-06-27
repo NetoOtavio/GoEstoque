@@ -1,9 +1,9 @@
-package com.goestoque.goestoqueservice.outputs;
+package com.goestoque.goestoqueservice.sales;
 
+import com.goestoque.goestoqueservice.outputs.OutputItem;
+import com.goestoque.goestoqueservice.sales.Sale;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.UUID;
 
 @Entity(name = "sit_sale_items")
 @Data
@@ -11,7 +11,7 @@ public class SaleItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    private String id;
 
     @MapsId
     @OneToOne

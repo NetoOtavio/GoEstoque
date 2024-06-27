@@ -14,6 +14,6 @@ public interface InputItemRepository extends JpaRepository<InputItem, String> {
     Optional<InputItem> findByInputAndId(Input input, String id);
     */
 
-    @Query(value = "select iit.* from iit_input_items iit join ite_items ite on ite.ite_id = iit.ite_id where iit.inp_id = :inputId and ite.ite_code = :itemCode", nativeQuery = true)
-    Optional<InputItem> findByInputAndItemCode(@Param("inputId")String inputId, @Param("itemCode")String itemCode);
+    @Query(value = "select iit.* from iit_input_items iit join ite_items ite on ite.ite_id = iit.ite_id where iit.inp_id = :purchaseId and ite.ite_code = :itemCode", nativeQuery = true)
+    Optional<InputItem> findByInputAndItemCode(@Param("purchaseId")String inputId, @Param("itemCode")String itemCode);
 }

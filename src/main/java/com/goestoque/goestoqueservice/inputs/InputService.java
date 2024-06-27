@@ -28,10 +28,10 @@ public class InputService {
                 .user(user)
                 .build();
         inputRepository.save(input);
-        for(InputItem inputItem : createSeveralInputItems(inputItemDTOS, input)) {
+        Set<InputItem> inputItems = createSeveralInputItems(inputItemDTOS, input);
+        for(InputItem inputItem : inputItems) {
             itemService.updateItemAvailableQuantity(inputItem.getItem(), inputItem.getAmount());
         }
-
         return input;
     }
 
@@ -74,8 +74,8 @@ public class InputService {
     }
 
     /*
-    public InputItem readInputItemByInputAndId(String inputId, String inputItemId) {
-        Input input = readInputByUserAndId(inputId);
+    public InputItem readInputItemByInputAndId(String purchaseId, String inputItemId) {
+        Input input = readInputByUserAndId(purchaseId);
         return inputItemRepository.findByInputAndId(input, inputItemId).orElseThrow( () -> new InputItemNotFoundException("teste"));
     }
     */
@@ -95,7 +95,7 @@ public class InputService {
 
     public InputItemDTO convertToInputItemDTO(InputItem inputItem) {
         return new InputItemDTO(
-                inputItem.getId(),
+                inputItem.getItem().getCode(),
                 inputItem.getAmount()
         );
     }
