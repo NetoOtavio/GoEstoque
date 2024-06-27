@@ -2,15 +2,12 @@ package com.goestoque.goestoqueservice.items;
 
 import com.goestoque.goestoqueservice.exception.ItemAlreadyExistsException;
 import com.goestoque.goestoqueservice.exception.ItemNotFoundException;
-import com.goestoque.goestoqueservice.inputs.InputItem;
 import com.goestoque.goestoqueservice.users.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +44,13 @@ public class ItemService {
     public Item readItemByUserAndCode(String itemCode) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return repository.findByUserAndCode(user, itemCode).orElseThrow( () -> new ItemNotFoundException(itemCode));
+    }
+
+    public List<Item> readItemByUserAndName(String name) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(user.getId());
+        System.out.println(name);
+        return repository.findByUserAndNameContaining(user.getId(), "%" + name + "%");
     }
 
     public ItemDTO convertToDTO(Item item) {

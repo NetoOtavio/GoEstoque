@@ -33,6 +33,13 @@ public class ItemController {
         return ResponseEntity.ok(service.convertToDTO(service.readItemByUserAndCode(itemCode)));
     }
 
+    @GetMapping("/readyuserandname")
+    public ResponseEntity<List<ItemDTO>> readItemByUserAndName(
+            @RequestParam String itemName
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.convertToDTOList(service.readItemByUserAndName(itemName)));
+    }
+
     @GetMapping("/readall")
     public @ResponseBody List<ItemDTO> readAllItems() {
         return service.convertToDTOList( service.readAllItems() );
