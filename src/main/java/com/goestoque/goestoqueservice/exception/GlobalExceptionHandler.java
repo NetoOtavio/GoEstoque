@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ItemNotFoundException.class)
     public ResponseEntity<DefaultErrorResponseDTO> handleItemNotFoundException(ItemNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(extractExceptionName(ex), ex.getMessage()));
     }
 
     @ExceptionHandler(ItemAlreadyExistsException.class)
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<DefaultErrorResponseDTO> handleUserAlreadyExistsException(UserAlreadyExistsException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new DefaultErrorResponseDTO(extractExceptionName(ex), ex.getMessage()));
     }
 
     //trata as constraints de validação de entrada de dados na api
@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MapErrorResponseDTO(exceptionName(ex), errors));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MapErrorResponseDTO(extractExceptionName(ex), errors));
     }
 
     //trata as exceções de autenticação
@@ -56,30 +56,35 @@ public class GlobalExceptionHandler {
             status = HttpStatus.FORBIDDEN;
             message = "Your account is not enabled. Please contact support.";
         }
-        return ResponseEntity.status(status).body(new DefaultErrorResponseDTO(exceptionName(ex), message));
+        return ResponseEntity.status(status).body(new DefaultErrorResponseDTO(extractExceptionName(ex), message));
     }
 
     @ExceptionHandler(InputNotFoundException.class)
     public ResponseEntity<DefaultErrorResponseDTO> handleInputNotFoundException(InputNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(extractExceptionName(ex), ex.getMessage()));
     }
 
     @ExceptionHandler(InputItemNotFoundException.class)
     public ResponseEntity<DefaultErrorResponseDTO> handleInputItemNotFoundException(InputItemNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(extractExceptionName(ex), ex.getMessage()));
     }
 
     @ExceptionHandler(PurchaseNotFoundException.class)
     public ResponseEntity<DefaultErrorResponseDTO> handlePurchaseNotFoundException(PurchaseNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(extractExceptionName(ex), ex.getMessage()));
     }
 
     @ExceptionHandler(OutputNotFoundException.class)
     public ResponseEntity<DefaultErrorResponseDTO> handleOutputNotFoundException(OutputNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(exceptionName(ex), ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(extractExceptionName(ex), ex.getMessage()));
     }
 
-    private String exceptionName(Exception ex) {
+    @ExceptionHandler(SaleNotFoundException.class)
+    public ResponseEntity<DefaultErrorResponseDTO> handleSaleNotFoundException(SaleNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new DefaultErrorResponseDTO(extractExceptionName(ex), ex.getMessage()));
+    }
+
+    private String extractExceptionName(Exception ex) {
         String string = ex.getClass().getName();
         return string.substring(string.lastIndexOf('.') + 1);
     }

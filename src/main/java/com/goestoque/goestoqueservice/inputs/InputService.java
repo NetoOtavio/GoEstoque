@@ -70,7 +70,7 @@ public class InputService {
     }
 
     public InputItem readInputItemByInputIdAndItemCode(String inputId, String itemCode) {
-        return inputItemRepository.findByInputAndItemCode(inputId, itemCode).orElseThrow( () -> new InputItemNotFoundException("teste"));
+        return inputItemRepository.findByInputAndItemCode(inputId, itemCode).orElseThrow( () -> new InputItemNotFoundException("teste") );
     }
 
     /*
